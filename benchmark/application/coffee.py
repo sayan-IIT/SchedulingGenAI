@@ -19,17 +19,17 @@ maintenance_time= {'Internal': 3, 'External': 5}
 repair_time= {'Internal': 5, 'External': 6}
 
 Travel_Cost = {
-    ('Internal', 'Customer_Site_1'): 5,
-    ('Internal', 'Customer_Site_2'): 3,
-    ('Internal', 'Customer_Site_3'): 6,
-    ('External', 'Customer_Site_1'): 4,
-    ('External', 'Customer_Site_2'): 5,
-    ('External', 'Customer_Site_3'): 2
+    ('Internal', 'Northcote'): 5,
+    ('Internal', 'Geelong'): 3,
+    ('Internal', 'Mornington'): 6,
+    ('External', 'Northcote'): 4,
+    ('External', 'Geelong'): 5,
+    ('External', 'Mornington'): 2
 }
 
-maintenance_work = {'Customer_Site_1': 20, 'Customer_Site_2': 30, 'Customer_Site_3': 40}
+maintenance_work = {'Northcote': 20, 'Geelong': 30, 'Mornington': 40}
 
-repair_work = {'Customer_Site_1': 20, 'Customer_Site_2': 20, 'Customer_Site_3': 100}
+repair_work = {'Northcote': 20, 'Geelong': 20, 'Mornington': 100}
 
 customers = list(set(i[1] for i in Travel_Cost.keys()))
 skills = list(
