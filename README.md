@@ -1,4 +1,4 @@
-# OptiGuide: Large Language Models for Sscheduling
+# OptiGuide: Large Language Models for Scheduling
 
 > Supply chain operations traditionally involve a variety of complex decision making problems. Over the last few decades, supply chains greatly benefited from advances in computation, which allowed the transition from manual processing to automation and cost-effective optimization. Nonetheless, business operators still need to spend substantial efforts in explaining and interpreting the optimization outcomes to stakeholders. Motivated by the recent advances in Large Language Models (LLMs), we study how this disruptive technology can help bridge the gap between supply chain automation and human comprehension and trust thereof. We design OptiGuide – a framework that accepts as input queries in plain text, and outputs insights about the underlying optimization outcomes. Our framework does not forgo the state-of-the-art combinatorial optimization technology, but rather leverages it to quantitatively answer what-if scenarios (e.g., how would the cost change if we used supplier B instead of supplier A for a given demand?). Importantly, our design does not require sending proprietary data over to LLMs, which can be a privacy concern in some circumstances. We demonstrate the effectiveness of our framework on a real server placement scenario within Microsoft’s cloud supply chain. Along the way, we develop a general evaluation benchmark, which can be used to evaluate the accuracy of the LLM output in other scenarios.
 
@@ -89,7 +89,7 @@ To download the dataset from Gurobi and automatically edit the source code, exec
 Ensure you have the necessary packages installed using:
 `pip install requests beautifulsoup4`
 
-Additionally, we developed a [Coffee](benchmark/application/coffee.py) application to showcase the OptiGuide framework as described in our paper.
+Additionally, we developed a Scheduling application to showcase the OptiGuide framework as described in our paper.
 
 
 **We acknowledge that both human and machine may contain errors while generating this benchmark. If you identify any inaccuracies, feel free to open an issue or submit a pull request for correction.**
