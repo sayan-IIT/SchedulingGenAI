@@ -21,7 +21,7 @@ from flaml.autogen.code_utils import extract_code
 
 # %% System Messages
 WRITER_SYSTEM_MSG = """You are a chatbot to:
-(1) write Python code to answer users questions for supply chain-related coding
+(1) write Python code to answer users questions for coding
 project;
 (2) explain solutions from a Gurobi/Python solver.
 
@@ -65,7 +65,7 @@ CONSTRAINT_CODE_STR = "# OPTIGUIDE CONSTRAINT CODE GOES HERE"
 # %%
 class OptiGuideAgent(AssistantAgent):
     """(Experimental) OptiGuide is an agent to answer
-    users questions for supply chain-related coding project.
+    users questions for coding project.
 
     The OptiGuide agent manages two assistant agents (writer and safeguard).
     """
@@ -168,8 +168,8 @@ class OptiGuideAgent(AssistantAgent):
         else:
             # DANGER: If not safe, try to debug. Redo coding
             execution_rst = """
-Sorry, this new code is not safe to run. I would not allow you to execute it.
-Please try to find a new way (coding) to answer the question."""
+Sorry, this new code or information is not safe to run. Hence, not executed.
+Please try to find a new way  to answer the question."""
         if self._debug_times_left > 0:
             # Try to debug and write code again (back to step 2)
             self._debug_times_left -= 1
@@ -200,9 +200,9 @@ def _run_with_exec(src_code: str) -> Union[str, Exception]:
     locals_dict.update(locals())
 
     timeout = Timeout(
-        60,
+        30,
         TimeoutError("This is a timeout exception, in case "
-                     "GPT's code falls into infinite loop."))
+                     "LLMs' code falls into infinite loop."))
     try:
         exec(src_code, locals_dict, locals_dict)
     except Exception as e:
@@ -226,7 +226,7 @@ def _run_with_exec(src_code: str) -> Union[str, Exception]:
             else:
                 ans = "Model Status:" + str(status)
         else:
-            ans = "Optimization problem solved. The objective value is: " + str(
+            ans = "Problem solved. The objective value is: " + str(
                 locals_dict["m"].objVal)
     except Exception as e:
         return e
