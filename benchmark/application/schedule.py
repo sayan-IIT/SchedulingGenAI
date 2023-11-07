@@ -46,21 +46,21 @@ model = Model("GBS Field Scheduling")
 x = model.addVars(Technician_Cost.keys(),
                   vtype=GRB.INTEGER,
                   name="x")
-y_light = model.addVars(Travel_Cost.keys(),
+y_maintenance = model.addVars(Travel_Cost.keys(),
                         vtype=GRB.INTEGER,
-                        name="y_light")
-y_dark = model.addVars(Travel_Cost.keys(),
+                        name="y_maintenance")
+y_repair = model.addVars(Travel_Cost.keys(),
                        vtype=GRB.INTEGER,
-                       name="y_dark")
+                       name="y_repair")
 
 # Set objective
 model.setObjective(
     sum(x[i] * Technician_Cost[i]
         for i in Technician_Cost.keys()) +
-    sum(maintenance_time[r] * y_light[r, c] +
-        repair_time[r] * y_dark[r, c]
+    sum(maintenance_time[r] * y_maintenance[r, c] +
+        repair_time[r] * y_repair[r, c]
         for r, c in Travel_Cost.keys()) + sum(
-            (y_light[j] + y_dark[j]) * Travel_Cost[j]
+            (y_maintenance[j] + y_repair[j]) * Travel_Cost[j]
             for j in Travel_Cost.keys()), GRB.MINIMIZE)
 
 # Conservation of flow constraint
@@ -68,24 +68,24 @@ for r in set(i[1] for i in Technician_Cost.keys()):
     model.addConstr(
         sum(x[i] for i in Technician_Cost.keys()
             if i[1] == r) == sum(
-                y_light[j] + y_dark[j]
+                y_maintenance[j] + y_repair[j]
                 for j in Travel_Cost.keys()
                 if j[0] == r), f"flow_{r}")
 
-# Add supply constraints
+# Add technician constraints
 for s in set(i[0] for i in Technician_Cost.keys()):
     model.addConstr(
         sum(x[i] for i in Technician_Cost.keys()
-            if i[0] == s) <= capacity_in_technician[s], f"supply_{s}")
+            if i[0] == s) <= capacity_in_technician[s], f"technician_{s}")
 
 # Add demand constraints
 for c in set(i[1] for i in Travel_Cost.keys()):
     model.addConstr(
-        sum(y_light[j] for j in Travel_Cost.keys()
+        sum(y_maintenance[j] for j in Travel_Cost.keys()
             if j[1] == c) >= maintenance_work[c],
         f"maintenance_demand_{c}")
     model.addConstr(
-        sum(y_dark[j] for j in Travel_Cost.keys()
+        sum(y_repair[j] for j in Travel_Cost.keys()
             if j[1] == c) >= repair_work[c],
         f"repair_demand_{c}")
 
