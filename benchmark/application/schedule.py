@@ -5,6 +5,22 @@ from gurobipy import GRB, Model
 
 capacity_in_technician = {'Adam': 150, 'John': 50, 'Dave': 100}
 
+work_by_technicians = { 
+    ('John', 30-10-2023):6,
+    ('John', 03-11-2023):5,
+    ('John', 04-11-2023):3,
+    ('John', 05-11-2023):2,
+    ('John', 06-11-2023):6,
+    ('John', 07-11-2023):1,
+    ('Adam', 30-10-2023):6,
+    ('Adam', 03-11-2023):5,
+    ('John', 06-11-2023):0,
+    ('John', 07-11-2023):1,
+    ('Dave', 06-11-2023):12,
+    ('Dave', 07-11-2023):8,
+
+    }
+
 Technician_Cost = {
     ('Adam', 'Internal'): 5,
     ('Adam', 'External'): 4,
